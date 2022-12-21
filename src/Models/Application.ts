@@ -3,6 +3,7 @@ import User from "./User";
 
 export interface ApplicationType {
   userid: Schema.Types.ObjectId;
+  customAppId: String;
   isCreated: Date;
   //   isCompleted: Date;
   isCompleted: {
@@ -26,10 +27,21 @@ export interface ApplicationType {
   isAgreeTerms: "Yes" | "No";
 }
 
+// userid: {
+//   type: Schema.Types.ObjectId,
+//   ref: User,
+//   required: true,
+// },
+
 const ApplicationSchema = new Schema<ApplicationType>({
   userid: {
     type: Schema.Types.ObjectId,
+    required: true,
     ref: User,
+    unique: false,
+  },
+  customAppId: {
+    type: String,
     required: true,
     unique: true,
   },

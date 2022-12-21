@@ -3,6 +3,7 @@ import User from "../Models/User";
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 import { Schema, ObjectId } from "mongoose";
+import Application from "../Models/Application";
 
 export const Register = async (req: Request, res: Response) => {
   try {
@@ -54,6 +55,11 @@ export const Login = async (req: Request, res: Response) => {
 
     const loggedinUser: any = await User.find({ email });
 
+    //checking any application is exist or not of a user
+    const pendingApplication = await Application.find({
+      userid: loggedinUser[0]._id,
+    });
+
     console.log(loggedinUser);
 
     if (!loggedinUser) {
@@ -89,8 +95,32 @@ export const Login = async (req: Request, res: Response) => {
     res.json({
       message: " Successfully Logged in ",
       authtoken: authtoken,
+      pendingApplication,
       success: true,
     });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message, success: false });
+  }
+};
+export const checkUserExist = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+
+    const loggedinUser: any = await User.find({ email });
+
+    console.log(loggedinUser);
+
+    if (loggedinUser.length == 0) {
+      return res.status(400).json({
+        error: "email not exist",
+        success: false,
+      });
+    } else {
+      res.json({
+        message: "email exist",
+        success: true,
+      });
+    }
   } catch (error: any) {
     res.status(500).json({ message: error.message, success: false });
   }

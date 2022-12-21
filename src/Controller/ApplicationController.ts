@@ -14,9 +14,44 @@ export const Register = async (req: any, res: Response) => {
   try {
     const userid = req.user.id;
 
+    // let customAppId = "QCA220914-1001";
+
+    let customAppId;
+
+    const genAppId = (id: any) => {
+      let mydate = new Date();
+      let month = mydate.getMonth() + 1;
+      let year = mydate.getFullYear().toString().slice(2, 4);
+      let date = mydate.getDate();
+
+      let string = `QCA${year}${month}${date}-${id}`;
+
+      return string;
+    };
+
+    const AllApps = await Application.find({});
+
+    if (AllApps.length > 0) {
+      let inNumber =
+        Number(
+          AllApps[AllApps.length - 1].customAppId.split("-")[
+            AllApps[AllApps.length - 1].customAppId.split("-").length - 1
+          ]
+        ) + 1;
+
+      console.log(inNumber);
+
+      customAppId = genAppId(inNumber);
+    } else {
+      customAppId = genAppId(1001);
+    }
+
+    // console.log({ customAppId });
+
     const RegisterdApplication = await Application.create({
       ...req.body,
       userid,
+      customAppId,
     });
 
     //sending Application in User response
@@ -224,6 +259,13 @@ export const Get = async (req: any, res: Response) => {
     const userid = user.id;
 
     console.log(userid);
+
+    // console.log(
+    //   "custom id :",
+    //   AllApps[AllApps.length - 1].customAppId.split("-")[
+    //     AllApps[AllApps.length - 1].customAppId.split("-").length - 1
+    //   ]
+    // );
 
     // console.log("user in app controller", req);
 
