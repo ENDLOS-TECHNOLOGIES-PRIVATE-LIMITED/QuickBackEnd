@@ -34,7 +34,7 @@ app.get("/", (req: Request, res: Response): void => {
   res.send("im you server");
 });
 
-app.use("/images/", express.static(path.join(__dirname, "./uploads")));
+app.use("/images/", express.static(path.join(__dirname, "../uploads")));
 
 app.use(cors());
 

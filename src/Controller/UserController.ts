@@ -55,6 +55,8 @@ export const Login = async (req: Request, res: Response) => {
 
     const loggedinUser: any = await User.find({ email });
 
+    const { firstName, lastName, Email } = loggedinUser;
+
     //checking any application is exist or not of a user
     const pendingApplication = await Application.find({
       userid: loggedinUser[0]._id,
@@ -97,6 +99,11 @@ export const Login = async (req: Request, res: Response) => {
       authtoken: authtoken,
       pendingApplication,
       success: true,
+      user: {
+        firstName,
+        lastName,
+        Email,
+      },
     });
   } catch (error: any) {
     res.status(500).json({ message: error.message, success: false });
@@ -130,14 +137,42 @@ export const checkUserExist = async (req: Request, res: Response) => {
 export const adminLogin = async (req: any, res: Response) => {
   try {
     //Destructuring data from request
+    const { email, password } = req.body;
+    const loggedinUser: any = await User.find({ email, isAdmin: true });
+    console.log(loggedinUser);
+    console.log();
 
-    req.user;
+    if (loggedinUser.length == 0) {
+      throw new Error("Try With Correct Credentials");
+    } else {
+      const passwordCompare = await bcrypt.compare(
+        password,
+        loggedinUser[0].password
+      );
 
-    res.json({
-      message: " Successfully Logged in ",
-      authtoken: req.user,
-      success: true,
-    });
+      if (!passwordCompare) {
+        return res.status(400).json({
+          success: false,
+          error: "Please try to login with correct credentials",
+        });
+      }
+
+      const data = {
+        user: {
+          id: loggedinUser[0]._id,
+          isAdmin: loggedinUser[0].isAdmin,
+        },
+      };
+
+      const authtoken = jwt.sign(data, process.env.JWT_SECRET);
+
+      res.json({
+        message: " Successfully Logged in ",
+        authtoken: authtoken,
+        idAdmin: loggedinUser[0].isAdmin,
+        success: true,
+      });
+    }
   } catch (error: any) {
     res.status(500).json({ message: error.message, success: false });
   }

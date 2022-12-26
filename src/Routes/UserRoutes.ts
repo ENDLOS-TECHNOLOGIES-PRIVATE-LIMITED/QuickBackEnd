@@ -13,7 +13,7 @@ const router = Router();
 
 router.post("/register", Register);
 router.post("/login", Login);
-router.post("/adminlogin", verifyUser, adminLogin);
+router.post("/adminlogin", adminLogin);
 router.post("/gettinguser", verifyUser, getingUser);
 router.post("/checkemail", checkUserExist);
 

@@ -59,6 +59,7 @@ const ClientSchema = new Schema<client>({
     type: String,
     required: true,
     minlength: 3,
+
     maxlength: 12,
   },
 });
