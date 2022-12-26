@@ -41,6 +41,11 @@ export const Register = async (req: Request, res: Response) => {
     res.json({
       message: " Successfully Registerd",
       authtoken: authtoken,
+      user: {
+        firstName,
+        lastName,
+        email,
+      },
       success: true,
     });
   } catch (error: any) {
@@ -53,16 +58,16 @@ export const Login = async (req: Request, res: Response) => {
     //Destructuring data from request
     const { email, password } = req.body;
 
-    const loggedinUser: any = await User.find({ email });
+    const loggedinUser: any = await User.find({ email: email });
 
-    const { firstName, lastName, Email } = loggedinUser;
+    const { firstName, lastName } = loggedinUser[0];
 
     //checking any application is exist or not of a user
     const pendingApplication = await Application.find({
       userid: loggedinUser[0]._id,
     });
 
-    console.log(loggedinUser);
+    console.log("user info", loggedinUser);
 
     if (!loggedinUser) {
       return res.status(400).json({
@@ -102,7 +107,7 @@ export const Login = async (req: Request, res: Response) => {
       user: {
         firstName,
         lastName,
-        Email,
+        email: loggedinUser[0].email,
       },
     });
   } catch (error: any) {

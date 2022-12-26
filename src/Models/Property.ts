@@ -26,20 +26,20 @@ const PropertySchema = new Schema<PropertyType>({
     type: String,
     required: true,
     minlength: 4,
-    maxlength: 35,
+    maxlength: 65,
   },
 
   state: {
     type: String,
     required: true,
-    minlength: 4,
-    maxlength: 15,
+    minlength: 2,
+    maxlength: 65,
   },
   sellerName: {
     type: String,
     required: true,
-    minlength: 4,
-    maxlength: 15,
+    minlength: 3,
+    maxlength: 45,
   },
   finalSalesPrice: {
     type: String,
@@ -62,7 +62,7 @@ const PropertySchema = new Schema<PropertyType>({
     type: String,
     required: true,
     minlength: 4,
-    maxlength: 15,
+    maxlength: 65,
   },
   ClosingDate: {
     type: Date,

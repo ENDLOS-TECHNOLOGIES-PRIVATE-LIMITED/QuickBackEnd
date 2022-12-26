@@ -51,37 +51,36 @@ const BrokerSchema = new Schema<BrokerType>({
 
   email: {
     type: String,
-    required: true,
   },
   borkerCompanyName: {
     type: String,
     required: true,
     minlength: 4,
-    maxlength: 35,
+    maxlength: 95,
   },
   bFirstName: {
     type: String,
     required: true,
     minlength: 4,
-    maxlength: 15,
+    maxlength: 65,
   },
   bLastName: {
     type: String,
     required: true,
     minlength: 4,
-    maxlength: 15,
+    maxlength: 85,
   },
   bcellPhone: {
     type: String,
     required: true,
-    minlength: 4,
-    maxlength: 15,
+    minlength: 10,
+    maxlength: 25,
   },
   bemail: {
     type: String,
     required: true,
-    minlength: 8,
-    maxlength: 25,
+    minlength: 6,
+    maxlength: 85,
   },
 });
 const Broker = model<BrokerType>("Broker", BrokerSchema);
