@@ -43,6 +43,11 @@ const Register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.json({
             message: " Successfully Registerd",
             authtoken: authtoken,
+            user: {
+                firstName,
+                lastName,
+                email,
+            },
             success: true,
         });
     }
@@ -55,12 +60,13 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //Destructuring data from request
         const { email, password } = req.body;
-        const loggedinUser = yield User_1.default.find({ email });
+        const loggedinUser = yield User_1.default.find({ email: email });
+        const { firstName, lastName } = loggedinUser[0];
         //checking any application is exist or not of a user
         const pendingApplication = yield Application_1.default.find({
             userid: loggedinUser[0]._id,
         });
-        console.log(loggedinUser);
+        console.log("user info", loggedinUser);
         if (!loggedinUser) {
             return res.status(400).json({
                 error: "Please try to login with correct credentials",
@@ -87,6 +93,11 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             authtoken: authtoken,
             pendingApplication,
             success: true,
+            user: {
+                firstName,
+                lastName,
+                email: loggedinUser[0].email,
+            },
         });
     }
     catch (error) {
@@ -121,12 +132,35 @@ exports.checkUserExist = checkUserExist;
 const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //Destructuring data from request
-        req.user;
-        res.json({
-            message: " Successfully Logged in ",
-            authtoken: req.user,
-            success: true,
-        });
+        const { email, password } = req.body;
+        const loggedinUser = yield User_1.default.find({ email, isAdmin: true });
+        console.log(loggedinUser);
+        console.log();
+        if (loggedinUser.length == 0) {
+            throw new Error("Try With Correct Credentials");
+        }
+        else {
+            const passwordCompare = yield bcrypt.compare(password, loggedinUser[0].password);
+            if (!passwordCompare) {
+                return res.status(400).json({
+                    success: false,
+                    error: "Please try to login with correct credentials",
+                });
+            }
+            const data = {
+                user: {
+                    id: loggedinUser[0]._id,
+                    isAdmin: loggedinUser[0].isAdmin,
+                },
+            };
+            const authtoken = jwt.sign(data, process.env.JWT_SECRET);
+            res.json({
+                message: " Successfully Logged in ",
+                authtoken: authtoken,
+                idAdmin: loggedinUser[0].isAdmin,
+                success: true,
+            });
+        }
     }
     catch (error) {
         res.status(500).json({ message: error.message, success: false });

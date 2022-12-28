@@ -46,13 +46,13 @@ const ClientSchema = new Schema<client>({
   city: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
     maxlength: 65,
   },
   state: {
     type: String,
     required: true,
-    minlength: 3,
+    minlength: 2,
     maxlength: 65,
   },
   zipcode: {

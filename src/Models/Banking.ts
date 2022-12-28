@@ -4,6 +4,11 @@ import Application from "./Application";
 export interface BankingType {
   appId: Schema.Types.ObjectId;
   bankName: String;
+  bankPhone: String;
+  bankAddress: String;
+  bankCity: String;
+  bankState: String;
+  bankZipcode: String;
   accountHolder: String;
   accountType: String;
   accountNumber: number;
@@ -27,6 +32,27 @@ const BankingSchema = new Schema<BankingType>({
     type: String,
     required: [true, "Please Enter Bank Name"],
   },
+  bankPhone: {
+    type: String,
+    required: true,
+  },
+  bankAddress: {
+    type: String,
+    required: true,
+  },
+  bankCity: {
+    type: String,
+    required: true,
+  },
+  bankState: {
+    type: String,
+    required: true,
+  },
+  bankZipcode: {
+    type: String,
+    required: true,
+  },
+
   accountHolder: {
     type: String,
     required: [true, "Please Enter Account Holder Name"],

@@ -39,13 +39,13 @@ const PropertySchema = new Schema<PropertyType>({
     type: String,
     required: true,
     minlength: 3,
-    maxlength: 45,
+    maxlength: 65,
   },
   finalSalesPrice: {
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 25,
+    maxlength: 35,
   },
 
   city: {

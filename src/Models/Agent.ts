@@ -9,9 +9,9 @@ export interface AgentType {
     isSelling?: boolean;
   };
 
-  totalTransactions: number;
-  pendingTransactions: number;
-  nonPendingListing: number;
+  totalTransactions: String;
+  pendingTransactions: String;
+  nonPendingListing: String;
 }
 
 const AgentSchema = new Schema<AgentType>({
@@ -23,7 +23,7 @@ const AgentSchema = new Schema<AgentType>({
   },
 
   netCommission: {
-    type: Number,
+    type: String,
     required: true,
   },
   typeOfAgent: {
@@ -38,15 +38,15 @@ const AgentSchema = new Schema<AgentType>({
   },
 
   totalTransactions: {
-    type: Number,
+    type: String,
     required: true,
   },
   pendingTransactions: {
-    type: Number,
+    type: String,
     required: true,
   },
   nonPendingListing: {
-    type: Number,
+    type: String,
     required: true,
   },
 });

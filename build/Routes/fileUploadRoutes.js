@@ -9,13 +9,11 @@ const multer = require("multer");
 // setting multer for storing uploaded files
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "../uploads/"));
+        // cb(null, path.join(__dirname, "../../../uploads/"));
+        cb(null, path.join(__dirname, "../../uploads/"));
     },
-    // filename: (req: any, file: any, cb: any) => {
-    //   cb(null, file.originalname );
-    // },
     filename: (req, file, cb) => {
-        cb(null, "" + Date.now() + "-" + file.originalname);
+        cb(null, +new Date() + "-" + file.originalname);
     },
 });
 const upload = multer({ storage: storage });

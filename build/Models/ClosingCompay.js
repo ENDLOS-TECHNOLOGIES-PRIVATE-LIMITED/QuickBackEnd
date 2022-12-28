@@ -15,20 +15,18 @@ const ClosingCompanySchema = new mongoose_1.Schema({
     closingCompanyName: {
         type: String,
         required: true,
-        minlength: 4,
-        maxlength: 35,
+        maxlength: 200,
     },
     address: {
         type: String,
         required: true,
-        minlength: 4,
-        maxlength: 15,
+        maxlength: 200,
     },
     state: {
         type: String,
         required: true,
-        minlength: 4,
-        maxlength: 15,
+        minlength: 1,
+        maxlength: 55,
     },
     contactName: {
         type: String,
@@ -45,8 +43,8 @@ const ClosingCompanySchema = new mongoose_1.Schema({
     city: {
         type: String,
         required: true,
-        minlength: 4,
-        maxlength: 15,
+        minlength: 2,
+        maxlength: 200,
     },
     zipCode: {
         type: String,

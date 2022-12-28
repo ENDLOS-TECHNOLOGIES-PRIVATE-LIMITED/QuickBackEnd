@@ -51,6 +51,13 @@ export const Edit = async (req: Request, res: Response) => {
     const {
       appId,
       bankName,
+
+      bankPhone,
+      bankAddress,
+      bankCity,
+      bankState,
+      bankZipcode,
+
       accountHolder,
       accountType,
       accountNumber,
@@ -79,6 +86,12 @@ export const Edit = async (req: Request, res: Response) => {
     const updatingBanking: BankingType = {
       appId,
       bankName,
+
+      bankPhone,
+      bankAddress,
+      bankCity,
+      bankState,
+      bankZipcode,
       accountHolder,
       accountType,
       accountNumber,
@@ -92,6 +105,21 @@ export const Edit = async (req: Request, res: Response) => {
 
     if (bankName) {
       updatingBanking.bankName = req.body.bankName;
+    }
+    if (bankPhone) {
+      updatingBanking.bankPhone = req.body.bankPhone;
+    }
+    if (bankAddress) {
+      updatingBanking.bankAddress = req.body.bankAddress;
+    }
+    if (bankCity) {
+      updatingBanking.bankCity = req.body.bankCity;
+    }
+    if (bankState) {
+      updatingBanking.bankState = req.body.bankState;
+    }
+    if (bankZipcode) {
+      updatingBanking.bankZipcode = req.body.bankZipcode;
     }
     if (accountHolder) {
       updatingBanking.accountHolder = req.body.accountHolder;
@@ -170,7 +198,7 @@ export const Edit = async (req: Request, res: Response) => {
     } else {
       //sending Banking details in response
       res.json({
-        message: "Banking Details fetched Successfully ",
+        message: "Banking Details Updated Successfully ",
         data: updatedBanking,
       });
     }

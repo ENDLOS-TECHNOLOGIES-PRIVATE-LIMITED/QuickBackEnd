@@ -30,7 +30,7 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
     res.send("im you server");
 });
-app.use("/images/", express_1.default.static(path.join(__dirname, "./uploads")));
+app.use("/images/", express_1.default.static(path.join(__dirname, "../uploads")));
 app.use(cors());
 // All Routes for Api
 app.use("/api/user", UserRoutes_1.default);

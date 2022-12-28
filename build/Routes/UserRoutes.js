@@ -6,7 +6,7 @@ const UserController_1 = require("../Controller/UserController");
 const router = (0, express_1.Router)();
 router.post("/register", UserController_1.Register);
 router.post("/login", UserController_1.Login);
-router.post("/adminlogin", verifyUser_1.verifyUser, UserController_1.adminLogin);
+router.post("/adminlogin", UserController_1.adminLogin);
 router.post("/gettinguser", verifyUser_1.verifyUser, UserController_1.getingUser);
 router.post("/checkemail", UserController_1.checkUserExist);
 exports.default = router;

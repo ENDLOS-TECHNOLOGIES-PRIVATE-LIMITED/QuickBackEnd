@@ -36,19 +36,19 @@ const ClientSchema = new mongoose_1.Schema({
     city: {
         type: String,
         required: true,
-        minlength: 4,
-        maxlength: 15,
+        minlength: 3,
+        maxlength: 65,
     },
     state: {
         type: String,
         required: true,
-        minlength: 4,
-        maxlength: 15,
+        minlength: 3,
+        maxlength: 65,
     },
     zipcode: {
         type: String,
         required: true,
-        minlength: 3,
+        minlength: 5,
         maxlength: 12,
     },
 });

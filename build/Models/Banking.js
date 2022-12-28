@@ -14,25 +14,31 @@ const BankingSchema = new mongoose_1.Schema({
     },
     bankName: {
         type: String,
-        required: true,
+        required: [true, "Please Enter Bank Name"],
     },
     accountHolder: {
         type: String,
-        required: true,
-        minlength: 4,
-        maxlength: 15,
+        required: [true, "Please Enter Account Holder Name"],
+        minlength: [
+            2,
+            "Account Holder Name Should Not Be Shorter Then 4 Characters",
+        ],
+        maxlength: [
+            50,
+            "Account Holder Name Maximum length Should'nt be More then 40 Characters",
+        ],
     },
     accountType: {
         type: String,
         required: true,
         minlength: 4,
-        maxlength: 15,
+        maxlength: 45,
     },
     accountNumber: {
         type: Number,
         required: true,
         minlength: 6,
-        maxlength: 25,
+        maxlength: 45,
     },
     routing: {
         type: String,

@@ -13,7 +13,7 @@ const AgentSchema = new mongoose_1.Schema({
         unique: true,
     },
     netCommission: {
-        type: Number,
+        type: String,
         required: true,
     },
     typeOfAgent: {
@@ -27,15 +27,15 @@ const AgentSchema = new mongoose_1.Schema({
         },
     },
     totalTransactions: {
-        type: Number,
+        type: String,
         required: true,
     },
     pendingTransactions: {
-        type: Number,
+        type: String,
         required: true,
     },
     nonPendingListing: {
-        type: Number,
+        type: String,
         required: true,
     },
 });
